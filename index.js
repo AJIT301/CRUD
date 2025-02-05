@@ -33,6 +33,44 @@ app.get('/users', async (_, res) => {
 //$1 is a positional parameter placeholder. It is used to safely insert the value of the variable id into the SQL query.
 //  This helps prevent SQL injection attacks by ensuring that the value is properly escaped.
 // const result = await pool.query(`select * from users where id = ${id}`); <--- nesaugus budas, galimas SQL injection
+
+
+// Instructions
+// Išsiaiškinti, kaip Postgresql aplinkoje pasidaryti lentelės duomenų kopiją. Yra keli būdai.
+// Susikurti duomenų bazėje lentelę Products. Lentelės parametrai: id(serial), title(varchar), description(varchar), price(float4)
+// Papildyti klasės darbo CRUD_API_PASKAITAI API routes:
+// GET /products - atvaizduoti visus produktus
+// GET /products/1 - atvaizduoti konkretų produktą
+// POST /products - sukurti naują produktą
+// PUT /products/:id - redaguoti produktą
+// DELETE /products/:id - ištrinti produktą
+// Aprašytus routes patikrtinti per POSTMAN
+// Projektą sukelti į savo GitHub
+
+
+// Papildomai: parašyti CYPRESS testą, kuris patikrina, ar produktas buvo sukurtas, kai kreipiamasį į POST /products
+// My work
+
+
+// async function createProductsTable() {
+//     try {
+//         const createTableQuery = `
+//             CREATE TABLE IF NOT EXISTS Products (
+//                 id SERIAL PRIMARY KEY,
+//                 title VARCHAR(100),
+//                 description VARCHAR(255),
+//                 price FLOAT4
+//             )
+//         `;
+//         await pool.query(createTableQuery);
+//         console.log('Table "Products" created successfully.');
+//     } catch (err) {
+//         console.error('Error creating table:', err);
+//     }
+// }
+
+// createProductsTable()
+
 app.get('/users/:id', async (req, res) => {
     try {
         const id = parseInt(req.params.id, 10);
@@ -60,9 +98,7 @@ app.post('/users', async (req, res) => {
 
         // Insert the user using a parameterized query
         const results = await pool.query(
-            `INSERT INTO users (id, username, "password") 
-             VALUES ($1, $2, $3) 
-             RETURNING *`,
+            `INSERT INTO users (id, username, "password") VALUES ($1, $2, $3) RETURNING *`,
             [id, username, password]
         );
 
@@ -172,11 +208,84 @@ app.delete('/users/:id', async (req, res) => {
 
 
 
+// GET /products - Get all products
+app.get('/products', async (req, res) => {
+    try {
+        const result = await pool.query('SELECT * FROM Products');
+        res.json(result.rows);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+});
+
+// GET /products/:id - Get a single product by id
+app.get('/products/:id', async (req, res) => {
+    const { id } = req.params;
+    try {
+        const result = await pool.query('SELECT * FROM Products WHERE id = $1', [id]);
+        if (result.rows.length === 0) {
+            return res.status(404).json({ error: 'Product not found' });
+        }
+        res.json(result.rows[0]);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+});
+
+// POST /products - Create a new product
+app.post('/products', async (req, res) => {
+    const { title, description, price } = req.body;
+    try {
+        const result = await pool.query(
+            'INSERT INTO Products (title, description, price) VALUES ($1, $2, $3) RETURNING *',
+            [title, description, price]
+        );
+        res.status(201).json(result.rows[0]);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+});
+
+// PUT /products/:id - Update a product
+app.put('/products/:id', async (req, res) => {
+    const { id } = req.params;
+    const { title, description, price } = req.body;
+    try {
+        const result = await pool.query(
+            'UPDATE Products SET title = $1, description = $2, price = $3 WHERE id = $4 RETURNING *',
+            [title, description, price, id]
+        );
+        if (result.rows.length === 0) {
+            return res.status(404).json({ error: 'Product not found' });
+        }
+        res.json(result.rows[0]);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+});
+
+// DELETE /products/:id - Delete a product
+app.delete('/products/:id', async (req, res) => {
+    const { id } = req.params;
+    try {
+        const result = await pool.query('DELETE FROM Products WHERE id = $1 RETURNING *', [id]);
+        if (result.rows.length === 0) {
+            return res.status(404).json({ error: 'Product not found' });
+        }
+        res.json({ message: 'Product deleted successfully' });
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+});
+
 
 
 
 // Start the server
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
-    console.log(`Atsargiai, saugokis kobros.`)
+    console.log(`Atsargiai,paskaitoje sliauzioja kobra/CERBERIS, saugokis.`)
+    console.log(`Nieko neklausk, nesiaiskink, prisauksi kobra/CERBERI`)
+    console.log(`Jeigu chatgpt neranda problemos, tiesiog ja pamirsk`)
+    console.log(`Jeigu problemos negalima isspresti, ja reikia ignoruoti.`)
 });

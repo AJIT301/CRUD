@@ -31,8 +31,23 @@ Stack - technologijos, kurias naudojame.
 
 ____________________________________________________________________________________________
 github:
-Summary:
 git add .: Stages your changes.
 git commit -m "message": Saves the changes with a description.
 git push origin master: Pushes your changes to GitHub.
 Let me know if you have any questions or run into any issues tomorrow!
+____________________________________________________________________________________________
+Instructions
+Išsiaiškinti, kaip Postgresql aplinkoje pasidaryti lentelės duomenų kopiją. Yra keli būdai.
++Susikurti duomenų bazėje lentelę Products. Lentelės parametrai: id(serial), title(varchar), description(varchar), price(float4)
++Papildyti klasės darbo CRUD_API_PASKAITAI API routes:
++GET /products - atvaizduoti visus produktus
++GET /products/1 - atvaizduoti konkretų produktą
++POST /products - sukurti naują produktą
++PUT /products/:id - redaguoti produktą
++DELETE /products/:id - ištrinti produktą
++Aprašytus routes patikrtinti per POSTMAN
++Projektą sukelti į savo GitHub
+
+
+Papildomai: parašyti CYPRESS testą, kuris patikrina, ar produktas buvo sukurtas, kai kreipiamasį į POST /products
+My work
