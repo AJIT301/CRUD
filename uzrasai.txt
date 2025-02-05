@@ -1,0 +1,30 @@
+1. Pasiimam API. Is interneto, jsonplaceholder, dummyAPI
+2. Postman tikrindavom requestus
+3. Pagal API dokumentacija  apsirasydavom requestus testavimui
+4. Atlikdavom rankini testavima (apsirasydavom vienkartini testa ir ji paleisdavom)
+5. Testuodavom visus request pagal bendrus gyvybes patikrinimo (smoke) testavima.
+5. Automatizuoti testus (4 punkta praleidineti automatiskai pagal kazkokius kriterijus)
+kiekvienos dienos 8:00 ikelti i GitHub
+
+
+1. Mes turime API koda, be dokumentacijos, ne visada gali buti aprasyti visi request.
+2. Mes turim moketi ji paleisti.
+3. jei jis blogai, minimaliai pataisyti.
+[*4. Unit testai. Juos raso programuotojas.]
+5. Pagal API dokumentacija apsirasydavom request testavimui
+6. Atlikdavome rankini testavima (apsirasydavom vienkartini testa ir ji paleisdavom)
+7. Testuodavom visus request pagal bendrus patikrinimo(smoke) testavima.
+*.8 Automatizuoti testus (4 punkta paleidineti automatiskai pagal kazkokius kriterijus)
+kiekvienos dienos 8:00 ikelti i GitHub
+9. [Cypress] testavimo irankis.
+    *Automatizuoti dizaino testavimui
+    *API testavimui.
+____________________________________________________________________________________________
+Biblioteka - knygos, autoriai ir pilnas CRUD (creat, read, update, delete(destroy))
+Stack - technologijos, kurias naudojame.
+1. Susikurti savo API
+    1.1 Duombazes /create (postgresql)
+    1.2 Serveris (node.js + express.js)
+    1.3 Bazines Javascript zinios
+    //node.js + express.js + postgresql
+    //React.js (dizainui)
