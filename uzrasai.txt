@@ -28,3 +28,11 @@ Stack - technologijos, kurias naudojame.
     1.3 Bazines Javascript zinios
     //node.js + express.js + postgresql
     //React.js (dizainui)
+
+____________________________________________________________________________________________
+github:
+Summary:
+git add .: Stages your changes.
+git commit -m "message": Saves the changes with a description.
+git push origin master: Pushes your changes to GitHub.
+Let me know if you have any questions or run into any issues tomorrow!
