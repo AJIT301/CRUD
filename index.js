@@ -211,7 +211,7 @@ app.delete('/users/:id', async (req, res) => {
 // GET /products - Get all products
 app.get('/products', async (req, res) => {
     try {
-        const result = await pool.query('SELECT * FROM Products');
+        const result = await pool.query('SELECT * FROM products ORDER BY id ASC');
         res.json(result.rows);
     } catch (err) {
         res.status(500).json({ error: err.message });
@@ -284,8 +284,5 @@ app.delete('/products/:id', async (req, res) => {
 // Start the server
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
-    console.log(`Atsargiai,paskaitoje sliauzioja kobra/CERBERIS, saugokis.`)
-    console.log(`Nieko neklausk, nesiaiskink, prisauksi kobra/CERBERI`)
-    console.log(`Jeigu chatgpt neranda problemos, tiesiog ja pamirsk`)
-    console.log(`Jeigu problemos negalima isspresti, ja reikia ignoruoti.`)
+    console.log(`Atsargiai, paskaitoje sliauzioja kobra`)
 });
