@@ -67,9 +67,13 @@ describe('CRUD_API', () => {
                 const existingTitles = response.body.map(product => product.title);
                 let newTitle = "naujaPrekė";
                 let i = 1;
-                while (existingTitles.includes(newTitle)) {
+                const maxIterations = 100; //saugiklis!!!
+                while (existingTitles.includes(newTitle) && i < maxIterations) {
                     newTitle = `naujaPrekė${i}`;
                     i++;
+                }
+                if (i === maxIterations) {
+                    throw new Error("Reached maximum iteration limit while generating new title");
                 }
 
                 cy.request("POST", "localhost:3000/products", {
